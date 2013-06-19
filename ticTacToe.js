@@ -10,13 +10,17 @@ Board.prototype.square_is = function(row, col, X_or_O) {
 };
 
 Board.prototype.winner = function() {
-  var winCheck = function(row, piece) {
+  // Current implementation returns who the last person to have 3 consecutive
+  // pieces is as the winner
+  // TODO: Fix the above bug
+  var currentWinner = null;
+  var rowCheck = function(row, piece) { // Helper func to check for consecutive pieces
     var col = null;
     var counter = 0;
 
     for (var i = 0; i < row.length; i++) {
       if(counter >=3) { // Winner if 3 consecutive
-        return piece;
+        currentWinner = piece;
       }
       col = row[i];
       if(piece === col){ // If col & piece are the same
@@ -29,13 +33,33 @@ Board.prototype.winner = function() {
       }
     }
   };
-  this.boardState.forEach(function(row, rowIndex) { // Check rows
+
+  // Check rows
+  this.boardState.forEach(function(row, rowIndex, board) {
     // check X
-    winCheck(row, 'X');
+    rowCheck(row, 'X');
     // check O
-    winCheck(row, 'O');
+    rowCheck(row, 'O');
   });
 
+  // Check cols
+  var cols = {};
+  this.boardState.forEach(function(row, rowIndex, board) {
+  // Creates a cols object containing arrays of each column
+    cols[rowIndex] = cols[rowIndex] || new Array(board.length);
+    row.forEach(function(col, colIndex,row) {
+      cols[colIndex] = cols[colIndex] || [];
+      cols[colIndex].push(col);
+    });
+  });
+  for (var key in cols) {
+    if (cols.hasOwnProperty(key)) {
+      rowCheck(row, 'X');
+      rowCheck(row, 'O');
+    }
+  }
+
+  return currentWinner;
   // returns either 'X', 'O', or null
 };
 
