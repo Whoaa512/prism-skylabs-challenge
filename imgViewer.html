@@ -24,7 +24,8 @@
 
       var viewLatestImg = function(cameraId) {
         $.get('/'+cameraId+'/latest', function(data) {
-          $('img#currentImg').attr('src', data.imgUrl);
+          $('img#currentImg').attr('src', data.imgUrl); // set viewer to latest img from camera
+          $('img#currentImg').data('img-id', data.imgId); // store that img's id
         });
       };
 
@@ -32,13 +33,22 @@
         $.get('/cameras', function(data) {
           camIds = data.cameras;
           curCamera = camIds[0]; // Set initial camera to first id
-          viewLatestImg(curCamera); // Set the initial img
+          viewLatestImg(curCamera); // Set viewer to the initial img
         });
       };
 
-      getCamIds();
-      camIds.forEach(function(cameraId) { // Link to different cameras
-        $('div#imgSources').append('<a href="/'+cameraId+'"></a>');
+      getCamIds(); // Store ids for later use
+
+      camIds.forEach(function(cameraId) { // Create links to different cameras
+        $('div#imgSources').append('<a href="'+cameraId+'"></a>');
+      });
+
+      // Bind event handler to change the selected camera
+      $('div#imgSources').on('click', 'a', function(event) {
+        event.preventDefault(); // Stop page refresh
+        curCamera = event.target.href;
+        // Change viewer to latest img from the newly selected camera
+        viewLatestImg(curCamera);
       });
 
     </script>
