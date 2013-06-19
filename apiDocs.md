@@ -3,12 +3,24 @@
     => Url endpoint
     => Example Response
 
-  * getLatestImg(camera)
+  * getLatestImg(cameraId)
     => '/:camera_id/latest'
     => {
       cameraId: Integer,
-      latestImg: String of url,
+      latestImgUrl: String,
       latestImgId: Integer
     }
-  * getNextImg(camera, prevImgId)
+  * getNextImg(cameraId, prevImgId)
+    => '/:camera_id/?prev_img=:prev_id'
+    => {
+      cameraId: Integer,
+      imgUrl: String,
+      imgId: Integer,
+      prevImgId: Integer
+    }
+  * getCamIds()
+    => '/cameras'
+    => {
+      cameras: [id1, id2, id3, ...]
+    }
 
