@@ -22,6 +22,20 @@
       var camIds,
           curCamera;
 
+      var viewNextImg = function(cameraId, imgId) {
+        $.get('/'+cameraId+'/?cur_img='+imgId+'&next=1',function(data) {
+          $('img#currentImg').attr('src', data.imgUrl); // set viewer to next img from camera
+          $('img#currentImg').data('img-id', data.imgId); // store that img's id
+        });
+      };
+
+      var viewPrevImg = function(cameraId, imgId) {
+        $.get('/'+cameraId+'/?cur_img='+imgId+'&next=0',function(data) {
+          $('img#currentImg').attr('src', data.imgUrl); // set viewer to prev img from camera
+          $('img#currentImg').data('img-id', data.imgId); // store that img's id
+        });
+      };
+
       var viewLatestImg = function(cameraId) {
         $.get('/'+cameraId+'/latest', function(data) {
           $('img#currentImg').attr('src', data.imgUrl); // set viewer to latest img from camera
