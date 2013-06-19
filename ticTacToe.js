@@ -6,7 +6,7 @@ var Board = function(side_length) {
 };
 
 Board.prototype.square_is = function(row, col, X_or_O) {
-  // do stuff...
+  this.boardState[row][col] = X_or_O;
 };
 
 Board.prototype.winner = function() {
