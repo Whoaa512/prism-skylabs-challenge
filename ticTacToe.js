@@ -10,8 +10,8 @@ Board.prototype.square_is = function(row, col, X_or_O) {
 };
 
 Board.prototype.winner = function() {
-  // Current implementation returns who the last person to have 3 consecutive
-  // pieces is as the winner
+  // Current implementation returns the last person to have 3 consecutive
+  // pieces as the winner
   // TODO: Fix the above bug
   var currentWinner = null;
   var rowCheck = function(row, piece) { // Helper func to check for consecutive pieces
