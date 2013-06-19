@@ -8,7 +8,8 @@
     => {
       cameraId: Integer,
       imgUrl: String,
-      imgId: Integer
+      imgId: Integer,
+      prevImgId: Integer
     }
   * getNextImg(cameraId, prevImgId)
     => '/:camera_id/?prev_img=:prev_id'
