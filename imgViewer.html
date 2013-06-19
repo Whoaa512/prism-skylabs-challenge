@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <section>
+      <div class='imgViewer'>
+          <img src="" id='currentImg' />
+          <button value='Next'></button>
+          <button value='Previous'></button>
+      </div>
+    </section>
+
+    <footer>
+      <div id='imgSources'>
+        <!-- List of cameras to view images from -->
+      </div>
+    </footer>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      var camIds;
+
+      var getCamIds = function() {
+        $.get('/cameras', function(data) {
+          camIds = data.cameras;
+        });
+      };
+
+      getCamIds();
+
+      var viewLatestImg = function(cameraId) {
+        $.get('/'+cameraId+'/latest', function(data) {
+          $('img#currentImg').attr('src', data.imgUrl);
+        });
+      };
+
+
+    </script>
+  </body>
+</html>
