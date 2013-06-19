@@ -1,14 +1,8 @@
 var Board = function(side_length) {
-  var board = [];
+  this.boardState = []; // Create storage for the boardState
   for (var row = 0; row < side_length; row++) {
-    var tempRow = new Array(side_length); // Create row
-    for (var i = 0; i < tempRow.length; i++) {
-      tempRow.push(null); // Create empty columns
-    }
-    board.push(tempRow);
+    this.boardState.push(new Array(side_length)); // Create row & empty columns
   }
-
-  return board; // return NxN board of null values
 };
 
 Board.prototype.square_is = function(row, col, X_or_O) {
