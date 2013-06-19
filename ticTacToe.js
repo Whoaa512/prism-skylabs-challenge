@@ -10,6 +10,32 @@ Board.prototype.square_is = function(row, col, X_or_O) {
 };
 
 Board.prototype.winner = function() {
+  var winCheck = function(row, piece) {
+    var col = null;
+    var counter = 0;
+
+    for (var i = 0; i < row.length; i++) {
+      if(counter >=3) { // Winner if 3 consecutive
+        return piece;
+      }
+      col = row[i];
+      if(piece === col){ // If col & piece are the same
+        counter += 1; // Increase the count
+      } else {
+        if(counter > 0){ // If there is a break in the chain
+          counter = 0; // Reset the count
+        }
+        continue;
+      }
+    }
+  };
+  this.boardState.forEach(function(row, rowIndex) { // Check rows
+    // check X
+    winCheck(row, 'X');
+    // check O
+    winCheck(row, 'O');
+  });
+
   // returns either 'X', 'O', or null
 };
 
