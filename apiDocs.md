@@ -8,16 +8,21 @@
     => {
       cameraId: Integer,
       imgUrl: String,
-      imgId: Integer,
-      prevImgId: Integer
+      imgId: Integer
     }
-  * getNextImg(cameraId, prevImgId)
-    => '/:camera_id/?prev_img=:prev_id'
+  * getNextImg(cameraId, curImgId)
+    => '/:camera_id/?cur_img=:cur_img_id&next=1'
     => {
       cameraId: Integer,
       imgUrl: String,
-      imgId: Integer,
-      prevImgId: Integer
+      imgId: Integer
+    }
+  * getPrevImg(cameraId, curImgId)
+    => '/:camera_id/?cur_img=:cur_img_id&next=0'
+    => {
+      cameraId: Integer,
+      imgUrl: String,
+      imgId: Integer
     }
   * getCamIds()
     => '/cameras'
